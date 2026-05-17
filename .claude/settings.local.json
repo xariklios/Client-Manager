@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php artisan *)",
+      "PowerShell(Get-Content *)",
+      "Bash(cd /d D:\\\\projects\\\\client-manager)",
+      "Bash(npm run *)"
+    ]
+  }
+}
