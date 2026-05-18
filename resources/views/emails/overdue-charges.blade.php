@@ -15,6 +15,6 @@ You have **{{ $charges->count() }}** overdue {{ Str::plural('charge', $charges->
 View Overdue Charges
 </x-mail::button>
 
-Thanks,<br>
-{{ config('app.name') }}
+Ευχαριστώ,<br>
+**Charis Valtzis**
 </x-mail::message>

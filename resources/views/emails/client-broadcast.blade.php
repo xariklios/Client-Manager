@@ -1,11 +1,10 @@
 <x-mail::message>
-Dear {{ $client->name }},
+Γεια σου, {{ $client->name }},
 
 {{ $body }}
 
 ---
 
-Thanks,<br>
-**{{ config('app.sender_name') }}**<br>
-[{{ config('app.sender_url') }}]({{ config('app.sender_url') }})
+Ευχαριστώ,<br>
+**Charis Valtzis**
 </x-mail::message>

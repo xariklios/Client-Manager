@@ -15,6 +15,6 @@ You have **{{ $projects->count() }}** project {{ Str::plural('renewal', $project
 View Clients
 </x-mail::button>
 
-Thanks,<br>
-{{ config('app.name') }}
+Ευχαριστώ,<br>
+**Charis Valtzis**
 </x-mail::message>
