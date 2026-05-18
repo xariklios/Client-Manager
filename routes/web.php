@@ -54,6 +54,9 @@ Route::middleware('auth')->group(function () {
     Route::livewire('/recurring/create', 'recurring.create');
     Route::livewire('/recurring/{recurringCharge}', 'recurring.edit');
 
+    // Broadcast
+    Route::livewire('/broadcast', 'broadcast.index');
+
     // Email log
     Route::livewire('/email-logs', 'email-logs.index');
 
