@@ -166,7 +166,9 @@ new class extends Component
                 PDF
             </a>
 
-            <button wire:click="sendToClient" wire:loading.attr="disabled"
+            <button wire:click="sendToClient"
+                    wire:confirm="Θα σταλεί email με το PDF της προσφοράς στον πελάτη {{ $offer->client->name }} ({{ $offer->client->email }}). Συνέχεια;"
+                    wire:loading.attr="disabled"
                     class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm text-indigo-700 border border-indigo-300 bg-indigo-50 rounded-lg hover:bg-indigo-100 disabled:opacity-50">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />

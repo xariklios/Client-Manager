@@ -1,12 +1,12 @@
 <x-mail::message>
-Γεια σου, {{ $offer->client->name }},
+Dear {{ $offer->client->name }},
 
-Ετοιμάσαμε μια προσφορά για **{{ $offer->title }}**.
+Please find attached our offer for **{{ $offer->title }}**.
 
-Θα βρεις όλες τις λεπτομέρειες στο συνημμένο PDF.
+The PDF contains all the details including scope of work and pricing.
 
-Αν έχεις οποιαδήποτε απορία, μπορείς να επικοινωνήσεις μαζί μας στο [{{ config('app.admin_email') }}](mailto:{{ config('app.admin_email') }}).
+If you have any questions, feel free to reach us at [{{ config('app.admin_email') }}](mailto:{{ config('app.admin_email') }}).
 
-Ευχαριστώ,<br>
+Thanks,<br>
 **Charis Valtzis**
 </x-mail::message>
