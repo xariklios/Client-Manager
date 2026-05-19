@@ -21,6 +21,7 @@ class Offer extends Model
         'sent_date',
         'accepted_date',
         'notes',
+        'internal_notes',
     ];
 
     protected $casts = [
