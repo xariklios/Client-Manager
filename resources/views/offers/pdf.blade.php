@@ -30,7 +30,7 @@
         .offer-title { font-size: 18px; font-weight: bold; color: #111; margin-bottom: 18px; }
 
         /* Description content */
-        .description { font-size: 13px; color: #374151; line-height: 1.75; white-space: pre-wrap; margin-bottom: 32px; }
+        .description { font-size: 13px; color: #374151; line-height: 1.75; margin-bottom: 32px; }
 
         /* Price block */
         .price-block { border-top: 2px solid #111; padding-top: 18px; }
@@ -97,7 +97,10 @@
 
     {{-- Description (scope of work) --}}
     @if($offer->description)
-        <div class="description">{{ $offer->description }}</div>
+        @php
+            $descHtml = nl2br(preg_replace('/\*\*(.*?)\*\*/s', '<strong>$1</strong>', e($offer->description)));
+        @endphp
+        <div class="description">{!! $descHtml !!}</div>
     @endif
 
     {{-- Price block --}}
@@ -139,9 +142,12 @@
     </div>
 
     @if($offer->notes)
+        @php
+            $notesHtml = nl2br(preg_replace('/\*\*(.*?)\*\*/s', '<strong>$1</strong>', e($offer->notes)));
+        @endphp
         <div style="margin-top:28px; font-size:11px; color:#9ca3af;">
             <strong style="text-transform:uppercase;letter-spacing:0.6px;">Notes</strong><br>
-            <span style="color:#6b7280;">{{ $offer->notes }}</span>
+            <span style="color:#6b7280;">{!! $notesHtml !!}</span>
         </div>
     @endif
 

@@ -10,10 +10,20 @@
 </head>
 <body class="bg-gray-50 text-gray-900 antialiased">
 
-<div class="flex min-h-screen">
+<div class="flex min-h-screen" x-data="{ sidebarOpen: false }">
+
+    {{-- Mobile backdrop --}}
+    <div x-show="sidebarOpen"
+         x-transition:enter="transition-opacity duration-200"
+         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+         x-transition:leave="transition-opacity duration-200"
+         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+         @click="sidebarOpen = false"
+         class="fixed inset-0 bg-black/50 z-10 md:hidden"></div>
 
     {{-- ── Sidebar ─────────────────────────────────────────── --}}
-    <aside class="fixed inset-y-0 left-0 w-60 bg-gray-950 flex flex-col z-20">
+    <aside class="fixed inset-y-0 left-0 w-60 bg-gray-950 flex flex-col z-20 transition-transform duration-200 -translate-x-full md:translate-x-0"
+           :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'">
 
         {{-- Logo --}}
         <div class="h-16 flex items-center px-5 shrink-0">
@@ -32,7 +42,7 @@
 
             <p class="px-3 pt-4 pb-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wider">Main</p>
 
-            <a href="/" wire:navigate
+            <a href="/" wire:navigate @click="sidebarOpen = false"
                wire:current-class="bg-gray-800 text-white"
                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-400 hover:bg-gray-800 hover:text-white transition-colors duration-150">
                 <svg class="w-4.5 h-4.5 shrink-0" style="width:18px;height:18px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -41,7 +51,7 @@
                 Dashboard
             </a>
 
-            <a href="/clients" wire:navigate
+            <a href="/clients" wire:navigate @click="sidebarOpen = false"
                wire:current-class="bg-gray-800 text-white"
                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-400 hover:bg-gray-800 hover:text-white transition-colors duration-150">
                 <svg style="width:18px;height:18px" class="shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -50,7 +60,7 @@
                 Clients
             </a>
 
-            <a href="/charges" wire:navigate
+            <a href="/charges" wire:navigate @click="sidebarOpen = false"
                wire:current-class="bg-gray-800 text-white"
                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-400 hover:bg-gray-800 hover:text-white transition-colors duration-150">
                 <svg style="width:18px;height:18px" class="shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -59,7 +69,7 @@
                 Charges
             </a>
 
-            <a href="/offers" wire:navigate
+            <a href="/offers" wire:navigate @click="sidebarOpen = false"
                wire:current-class="bg-gray-800 text-white"
                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-400 hover:bg-gray-800 hover:text-white transition-colors duration-150">
                 <svg style="width:18px;height:18px" class="shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -70,7 +80,7 @@
 
             <p class="px-3 pt-5 pb-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wider">Automation</p>
 
-            <a href="/recurring" wire:navigate
+            <a href="/recurring" wire:navigate @click="sidebarOpen = false"
                wire:current-class="bg-gray-800 text-white"
                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-400 hover:bg-gray-800 hover:text-white transition-colors duration-150">
                 <svg style="width:18px;height:18px" class="shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -79,7 +89,7 @@
                 Recurring
             </a>
 
-            <a href="/broadcast" wire:navigate
+            <a href="/broadcast" wire:navigate @click="sidebarOpen = false"
                wire:current-class="bg-gray-800 text-white"
                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-400 hover:bg-gray-800 hover:text-white transition-colors duration-150">
                 <svg style="width:18px;height:18px" class="shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -88,7 +98,7 @@
                 Broadcast
             </a>
 
-            <a href="/email-logs" wire:navigate
+            <a href="/email-logs" wire:navigate @click="sidebarOpen = false"
                wire:current-class="bg-gray-800 text-white"
                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-400 hover:bg-gray-800 hover:text-white transition-colors duration-150">
                 <svg style="width:18px;height:18px" class="shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -121,8 +131,19 @@
     </aside>
 
     {{-- ── Content ──────────────────────────────────────────── --}}
-    <div class="flex-1 pl-60 flex flex-col min-h-screen">
-        <main class="flex-1 p-8 max-w-6xl w-full">
+    <div class="flex-1 md:pl-60 flex flex-col min-h-screen">
+
+        {{-- Mobile top bar --}}
+        <div class="md:hidden sticky top-0 z-10 h-14 bg-gray-950 flex items-center gap-3 px-4 shrink-0">
+            <button @click="sidebarOpen = true" class="text-gray-400 hover:text-white">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+            <span class="text-white font-semibold text-sm">{{ config('app.name') }}</span>
+        </div>
+
+        <main class="flex-1 p-4 md:p-8 max-w-6xl w-full">
             {{ $slot }}
         </main>
     </div>

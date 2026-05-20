@@ -201,7 +201,7 @@ new class extends Component
         {{-- Meta --}}
         <div class="bg-white rounded-lg shadow p-6 space-y-5">
 
-            <div class="grid grid-cols-2 gap-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Τίτλος προσφοράς <span class="text-red-500">*</span></label>
                     <input wire:model="title" type="text"
@@ -220,7 +220,7 @@ new class extends Component
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Project</label>
                     <select wire:model="project_id"
@@ -253,13 +253,14 @@ new class extends Component
             <p class="text-xs text-gray-400 mb-2">Εμφανίζεται στο PDF.</p>
             <textarea wire:model="description" rows="16"
                       class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono leading-relaxed"></textarea>
+            <p class="mt-1.5 text-xs text-gray-400"><code class="bg-gray-100 px-1 rounded font-mono">**bold**</code> → <strong>έντονο</strong> &nbsp;·&nbsp; Enter = νέα γραμμή στο PDF</p>
         </div>
 
         {{-- Price --}}
         <div class="bg-white rounded-lg shadow p-6 space-y-5">
             <h2 class="text-base font-semibold text-gray-900">Τιμολόγηση</h2>
 
-            <div class="grid grid-cols-3 gap-5">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">
                         Αρχική τιμή (€)
@@ -324,6 +325,7 @@ new class extends Component
             <p class="text-xs text-gray-400 mb-2">Εμφανίζονται στο PDF.</p>
             <textarea wire:model="notes" rows="3"
                       class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            <p class="mt-1.5 text-xs text-gray-400"><code class="bg-gray-100 px-1 rounded font-mono">**bold**</code> → <strong>έντονο</strong> &nbsp;·&nbsp; Enter = νέα γραμμή</p>
         </div>
 
         {{-- Internal notes (NOT in PDF) --}}
