@@ -73,7 +73,7 @@
 
     {{-- Client + Offer info --}}
     <div class="meta-row">
-        <div class="meta-cell">
+        <div class="meta-cell" style="{{ $offer->project ? '' : 'width:100%' }}">
             <div class="meta-lbl">Bill To</div>
             <div class="meta-val">
                 <strong>{{ $offer->client->name }}</strong><br>
@@ -82,6 +82,14 @@
                 @if($offer->client->address)         <span class="muted">{{ $offer->client->address }}</span> @endif
             </div>
         </div>
+        @if($offer->project)
+        <div class="meta-cell">
+            <div class="meta-lbl">Details</div>
+            <div class="meta-val">
+                <span class="muted">Project: {{ $offer->project->name }}</span>
+            </div>
+        </div>
+        @endif
     </div>
 
     {{-- Offer title --}}
