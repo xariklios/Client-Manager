@@ -82,12 +82,6 @@
                 @if($offer->client->address)         <span class="muted">{{ $offer->client->address }}</span> @endif
             </div>
         </div>
-        <div class="meta-cell">
-            <div class="meta-lbl">Details</div>
-            <div class="meta-val">
-                @if($offer->project) <span class="muted">Project: {{ $offer->project->name }}</span> @endif
-            </div>
-        </div>
     </div>
 
     {{-- Offer title --}}
