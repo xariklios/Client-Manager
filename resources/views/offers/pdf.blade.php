@@ -77,7 +77,6 @@
             <div class="meta-lbl">Bill To</div>
             <div class="meta-val">
                 <strong>{{ $offer->client->name }}</strong><br>
-                @if($offer->client->contact_person) <span class="muted">{{ $offer->client->contact_person }}</span><br> @endif
                 @if($offer->client->email)           <span class="muted">{{ $offer->client->email }}</span><br> @endif
                 @if($offer->client->vat_number)      <span class="muted">VAT: {{ $offer->client->vat_number }}</span><br> @endif
                 @if($offer->client->address)         <span class="muted">{{ $offer->client->address }}</span> @endif
@@ -86,8 +85,7 @@
         <div class="meta-cell">
             <div class="meta-lbl">Details</div>
             <div class="meta-val">
-                @if($offer->project) <span class="muted">Project: {{ $offer->project->name }}</span><br> @endif
-                <span class="muted">Status: {{ $offer->status->label() }}</span>
+                @if($offer->project) <span class="muted">Project: {{ $offer->project->name }}</span> @endif
             </div>
         </div>
     </div>
