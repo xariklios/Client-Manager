@@ -31,6 +31,7 @@
 
         /* Description content */
         .description { font-size: 13px; color: #374151; line-height: 1.75; margin-bottom: 32px; }
+        .para { page-break-inside: avoid; margin-bottom: 10px; }
 
         /* Price block */
         .price-block { border-top: 2px solid #111; padding-top: 18px; }
@@ -98,9 +99,16 @@
     {{-- Description (scope of work) --}}
     @if($offer->description)
         @php
-            $descHtml = nl2br(preg_replace('/\*\*(.*?)\*\*/s', '<strong>$1</strong>', e($offer->description)));
+            $paragraphs = preg_split('/\r?\n\r?\n/', $offer->description);
         @endphp
-        <div class="description">{!! $descHtml !!}</div>
+        <div class="description">
+            @foreach($paragraphs as $para)
+                @php
+                    $paraHtml = nl2br(preg_replace('/\*\*(.*?)\*\*/s', '<strong>$1</strong>', e($para)));
+                @endphp
+                <div class="para">{!! $paraHtml !!}</div>
+            @endforeach
+        </div>
     @endif
 
     {{-- Price block --}}
