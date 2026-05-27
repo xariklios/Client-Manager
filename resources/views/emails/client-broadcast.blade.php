@@ -1,10 +1,10 @@
 <x-mail::message>
-Dear {{ $client->name }},
+Αγαπητέ/ή {{ $client->name }},
 
 {{ $body }}
 
 ---
 
-Thanks,<br>
+Με εκτίμηση,<br>
 **Charis Valtzis**
 </x-mail::message>

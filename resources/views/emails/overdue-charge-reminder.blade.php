@@ -1,17 +1,17 @@
 <x-mail::message>
-# Overdue Payment Notice
+# Ληξιπρόθεσμη Πληρωμή
 
-Dear {{ $charge->client->name }},
+Αγαπητέ/ή {{ $charge->client->name }},
 
-This is a notice that the following payment is **{{ $daysOverdue }} {{ $daysOverdue === 1 ? 'day' : 'days' }} overdue**.
+Σας ενημερώνουμε ότι η παρακάτω πληρωμή είναι **ληξιπρόθεσμη κατά {{ $daysOverdue }} {{ $daysOverdue === 1 ? 'ημέρα' : 'ημέρες' }}**.
 
 <x-mail::table>
 | | |
 |:--|:--|
-| **Description** | {{ $charge->title }} |
-| **Amount** | €{{ number_format($charge->amount, 2) }} |
-| **Due Date** | {{ $charge->due_date->format('d F Y') }} |
-| **Days Overdue** | {{ $daysOverdue }} |
+| **Περιγραφή** | {{ $charge->title }} |
+| **Ποσό** | €{{ number_format($charge->amount, 2) }} |
+| **Ημερομηνία Λήξης** | {{ $charge->due_date->format('d F Y') }} |
+| **Ημέρες Καθυστέρησης** | {{ $daysOverdue }} |
 @if($charge->project)
 | **Project** | {{ $charge->project->name }} |
 @endif
@@ -21,10 +21,10 @@ This is a notice that the following payment is **{{ $daysOverdue }} {{ $daysOver
 *{{ $charge->description }}*
 @endif
 
-Please settle this payment as soon as possible. If you have already paid, please ignore this message.
+Παρακαλούμε να τακτοποιήσετε την πληρωμή το συντομότερο δυνατό. Αν έχετε ήδη πληρώσει, παρακαλούμε αγνοήστε αυτό το μήνυμα.
 
-For any questions you can reach us at [{{ config('app.admin_email') }}](mailto:{{ config('app.admin_email') }}).
+Για οποιαδήποτε απορία μπορείτε να επικοινωνήσετε μαζί μας στο [{{ config('app.admin_email') }}](mailto:{{ config('app.admin_email') }}).
 
-Thanks,<br>
+Με εκτίμηση,<br>
 **Charis Valtzis**
 </x-mail::message>

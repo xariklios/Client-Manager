@@ -1,16 +1,16 @@
 <x-mail::message>
-# Payment Reminder
+# Υπενθύμιση Πληρωμής
 
-Dear {{ $charge->client->name }},
+Αγαπητέ/ή {{ $charge->client->name }},
 
-This is a friendly reminder that the following payment is due in **{{ $daysUntilDue }} {{ $daysUntilDue === 1 ? 'day' : 'days' }}**.
+Σας υπενθυμίζουμε ότι η παρακάτω πληρωμή εκκρεμεί σε **{{ $daysUntilDue }} {{ $daysUntilDue === 1 ? 'ημέρα' : 'ημέρες' }}**.
 
 <x-mail::table>
 | | |
 |:--|:--|
-| **Description** | {{ $charge->title }} |
-| **Amount** | €{{ number_format($charge->amount, 2) }} |
-| **Due Date** | {{ $charge->due_date->format('d F Y') }} |
+| **Περιγραφή** | {{ $charge->title }} |
+| **Ποσό** | €{{ number_format($charge->amount, 2) }} |
+| **Ημερομηνία Λήξης** | {{ $charge->due_date->format('d F Y') }} |
 @if($charge->project)
 | **Project** | {{ $charge->project->name }} |
 @endif
@@ -20,12 +20,12 @@ This is a friendly reminder that the following payment is due in **{{ $daysUntil
 *{{ $charge->description }}*
 @endif
 
-Please arrange payment before the due date to avoid any service interruption.
+Παρακαλούμε να τακτοποιήσετε την πληρωμή πριν την ημερομηνία λήξης για να αποφύγετε οποιαδήποτε διακοπή υπηρεσίας.
 
-If you have already made this payment, please disregard this message.
+Αν έχετε ήδη πραγματοποιήσει αυτή την πληρωμή, παρακαλούμε αγνοήστε αυτό το μήνυμα.
 
-For any questions you can reach us at [{{ config('app.admin_email') }}](mailto:{{ config('app.admin_email') }}).
+Για οποιαδήποτε απορία μπορείτε να επικοινωνήσετε μαζί μας στο [{{ config('app.admin_email') }}](mailto:{{ config('app.admin_email') }}).
 
-Thanks,<br>
+Με εκτίμηση,<br>
 **Charis Valtzis**
 </x-mail::message>
