@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\ChargeExpiredAdminNotice;
 use App\Mail\OverdueChargeReminder;
 use App\Mail\UpcomingChargeReminder;
 use App\Models\Charge;
@@ -59,6 +60,21 @@ class SendClientChargeReminders extends Command
                     $this->info("Overdue reminder ({$daysOverdue}d late) → {$charge->client->email} for '{$charge->title}'");
                     $sent++;
                 }
+            }
+        }
+
+        // Admin notification: all unpaid charges due today
+        $dueToday = Charge::unpaid()
+            ->whereDate('due_date', today())
+            ->with(['client', 'project', 'reminders'])
+            ->get();
+
+        foreach ($dueToday as $charge) {
+            if ($charge->reminders->where('days_offset', 0)->isEmpty()) {
+                Mail::to(config('app.admin_email'))->send(new ChargeExpiredAdminNotice($charge));
+                ChargeReminder::create(['charge_id' => $charge->id, 'days_offset' => 0, 'sent_at' => now()]);
+                $this->info("Admin expiry notice → {$charge->client->name} / '{$charge->title}'");
+                $sent++;
             }
         }
 
