@@ -6,5 +6,5 @@
 ---
 
 Με εκτίμηση,<br>
-**Charis Valtzis**
+**Χάρης Βαλτζής**
 </x-mail::message>
