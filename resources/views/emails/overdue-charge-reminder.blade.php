@@ -1,7 +1,7 @@
 <x-mail::message>
 # Overdue Payment Notice
 
-Γεια σου, {{ $charge->client->name }},
+Dear {{ $charge->client->name }},
 
 This is a notice that the following payment is **{{ $daysOverdue }} {{ $daysOverdue === 1 ? 'day' : 'days' }} overdue**.
 
@@ -25,6 +25,6 @@ Please settle this payment as soon as possible. If you have already paid, please
 
 For any questions you can reach us at [{{ config('app.admin_email') }}](mailto:{{ config('app.admin_email') }}).
 
-Ευχαριστώ,<br>
+Thanks,<br>
 **Charis Valtzis**
 </x-mail::message>
