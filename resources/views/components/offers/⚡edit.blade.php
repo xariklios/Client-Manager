@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Enums\OfferStatus;
 use App\Enums\ChargeStatus;
 use App\Mail\OfferSent;
+use App\Models\EmailLog;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 
@@ -97,6 +98,7 @@ new class extends Component
         $this->offer->load(['client', 'project', 'items']);
 
         Mail::to($this->offer->client->email)->send(new OfferSent($this->offer));
+        EmailLog::create(['type' => 'offer_sent', 'recipient' => $this->offer->client->email, 'subject' => 'Προσφορά: ' . $this->offer->title, 'records_count' => 1]);
 
         $today = now()->toDateString();
         $this->offer->update([

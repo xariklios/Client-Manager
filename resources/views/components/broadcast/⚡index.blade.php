@@ -2,6 +2,7 @@
 
 use App\Mail\ClientBroadcast;
 use App\Models\Client;
+use App\Models\EmailLog;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -42,6 +43,7 @@ new class extends Component {
 
         foreach ($clients as $client) {
             Mail::to($client->email)->send(new ClientBroadcast($this->subject, $this->body, $client));
+            EmailLog::create(['type' => 'broadcast', 'recipient' => $client->email, 'subject' => $this->subject, 'records_count' => 1]);
         }
 
         $this->sentCount = $clients->count();

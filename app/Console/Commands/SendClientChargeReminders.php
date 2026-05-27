@@ -7,6 +7,7 @@ use App\Mail\OverdueChargeReminder;
 use App\Mail\UpcomingChargeReminder;
 use App\Models\Charge;
 use App\Models\ChargeReminder;
+use App\Models\EmailLog;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -44,6 +45,7 @@ class SendClientChargeReminders extends Command
                     if ($daysUntil === $target && ! in_array(-$target, $sentOffsets, true)) {
                         Mail::to($charge->client->email)->send(new UpcomingChargeReminder($charge, $daysUntil));
                         ChargeReminder::create(['charge_id' => $charge->id, 'days_offset' => -$target, 'sent_at' => now()]);
+                        EmailLog::create(['type' => 'upcoming_reminder', 'recipient' => $charge->client->email, 'subject' => 'Υπενθύμιση Ανανέωσης: ' . $charge->title, 'records_count' => 1]);
                         $this->info("Upcoming reminder ({$daysUntil}d) → {$charge->client->email} for '{$charge->title}'");
                         $sent++;
                     }
@@ -57,6 +59,7 @@ class SendClientChargeReminders extends Command
                 if ($daysOverdue % 3 === 0 && $daysOverdue > 0 && ! in_array($daysOverdue, $sentOffsets, true)) {
                     Mail::to($charge->client->email)->send(new OverdueChargeReminder($charge, $daysOverdue));
                     ChargeReminder::create(['charge_id' => $charge->id, 'days_offset' => $daysOverdue, 'sent_at' => now()]);
+                    EmailLog::create(['type' => 'overdue_reminder', 'recipient' => $charge->client->email, 'subject' => 'Ληξιπρόθεσμη Πληρωμή: ' . $charge->title, 'records_count' => 1]);
                     $this->info("Overdue reminder ({$daysOverdue}d late) → {$charge->client->email} for '{$charge->title}'");
                     $sent++;
                 }
@@ -73,6 +76,7 @@ class SendClientChargeReminders extends Command
             if ($charge->reminders->where('days_offset', 0)->isEmpty()) {
                 Mail::to(config('app.admin_email'))->send(new ChargeExpiredAdminNotice($charge));
                 ChargeReminder::create(['charge_id' => $charge->id, 'days_offset' => 0, 'sent_at' => now()]);
+                EmailLog::create(['type' => 'expiry_notice', 'recipient' => config('app.admin_email'), 'subject' => 'Λήξη υπηρεσίας: ' . $charge->title . ' — ' . $charge->client->name, 'records_count' => 1]);
                 $this->info("Admin expiry notice → {$charge->client->name} / '{$charge->title}'");
                 $sent++;
             }

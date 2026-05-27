@@ -38,9 +38,29 @@ new class extends Component
                                 {{ $log->created_at->format('d M Y, H:i') }}
                             </td>
                             <td class="px-4 py-3">
-                                <span class="px-2 py-0.5 rounded text-xs font-medium
-                                    {{ $log->type === 'overdue_charges' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700' }}">
-                                    {{ str_replace('_', ' ', $log->type) }}
+                                @php
+                                    $badge = match($log->type) {
+                                        'overdue_charges'  => 'bg-red-100 text-red-700',
+                                        'overdue_reminder' => 'bg-orange-100 text-orange-700',
+                                        'expiry_notice'    => 'bg-yellow-100 text-yellow-700',
+                                        'upcoming_reminder'=> 'bg-blue-100 text-blue-700',
+                                        'offer_sent'       => 'bg-indigo-100 text-indigo-700',
+                                        'broadcast'        => 'bg-purple-100 text-purple-700',
+                                        default            => 'bg-gray-100 text-gray-600',
+                                    };
+                                    $label = match($log->type) {
+                                        'overdue_charges'   => 'Digest Ληξιπρόθεσμων',
+                                        'overdue_reminder'  => 'Ληξιπρόθεσμο',
+                                        'expiry_notice'     => 'Λήξη (admin)',
+                                        'upcoming_reminder' => 'Υπενθύμιση',
+                                        'offer_sent'        => 'Προσφορά',
+                                        'broadcast'         => 'Broadcast',
+                                        'renewal_reminders' => 'Digest Ανανεώσεων',
+                                        default             => str_replace('_', ' ', $log->type),
+                                    };
+                                @endphp
+                                <span class="px-2 py-0.5 rounded text-xs font-medium {{ $badge }}">
+                                    {{ $label }}
                                 </span>
                             </td>
                             <td class="px-4 py-3 text-gray-600">{{ $log->recipient }}</td>
